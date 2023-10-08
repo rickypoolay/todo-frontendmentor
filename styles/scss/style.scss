@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+//Breakpoints
+
+@mixin breakpoint($point) {
+    @if point==desktop {
+        @media (min-width: 70em) {
+            @content;
+        }
+    }
+
+    @else if point==laptop {
+        @media (min-width: 64em) {
+            @content;
+        }
+    }
+
+    @else if point==tablet {
+        @media (min-width: 50em) {
+            @content;
+        }
+    }
+
+    @else if point==phablet {
+        @media (min-width: 37.5em) {
+            @content;
+        }
+    }
+
+    @else if point==mobileonly {
+        @media (max-width: 37.5em) {
+            @content;
+        }
+    }
+}
+
+* {
+    margin:0;
+    box-sizing: border-box;
+    padding:0;
+    font-family: 'Josefin Sans';
+    color:white;
+    user-select: none;
+
+}
+
+:root {
+    //Dark
+    --bodyBackgroundDark: #161621;
+    --taskContainersDark: rgb(37,39,60);
+    --textColorDark : hsl(236, 9%, 61%);
+    --textColorCrossedDark: hsl(233, 11%, 84%);
+    --checkColorFilterLight: brightness(100%);
+    --inputColor: #fff;
+
+    //Light
+    --bodyBackgroundLight: #e6e6e6;
+    --taskContainersLight: #fff;
+    --textColorLight : hsl(236, 9%, 61%);
+    --textColorCrossedLight: hsl(233, 11%, 84%);
+    --checkColorFilterLight: brightness(0%);
+    --inputColor: hsl(236, 9%, 61%);
+}
+
+//Color Themes
+
+.light {
+    --bgColor: var(--bodyBackgroundLight);
+    --bgTasks: var(--taskContainersLight);
+    --bgImage: url('../../../images/bg-mobile-light.jpg');
+    --checkColor:brightness(0%);
+}
+
+.dark {
+    --bgColor: var(--bodyBackgroundDark);
+    --bgTasks: var(--taskContainersDark);
+    --bgImage: url('../../../images/bg-mobile-dark.jpg');
+    --checkColor:brightness(100%);
+}
+
+//Body
+
+body {
+    background-image: var(--bgImage);
+    background-repeat:no-repeat;
+    background-size:100vw 12em;
+    background-color: var(--bgColor);
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:16px;
+    transition: all .5s ease-in-out;
+}
+
+
+//Main Container of App
+
+.container {
+    position:absolute;
+    top:2em;
+    min-width:20em;
+    height:45.5em;
+    animation: fadeInUp .5s ease-in-out forwards;
+}
+
+
+//Header
+
+.header {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .theme-switch {
+        width:1.5em;
+        height:1.5em;
+        cursor:pointer;
+
+    }
+}
+
+.todo-header {
+    letter-spacing: .25em;
+}
+
+//Global Task Style
+
+.task-style {
+    transition: all .5s ease-in-out;
+    display:flex;
+    width: 100%;
+    height:3em;
+    background-color: var(--bgTasks);
+    align-items: center;
+    border-bottom: 1px solid #38394a;
+
+    .cross-style {
+        width:.75em;
+        margin: 0 1em;
+        cursor:pointer;
+    }
+
+    input[type="checkbox"] {
+        position:absolute;
+        appearance: none;
+        left:1.4em;
+        z-index:5;
+    }
+
+    label {
+        position: relative;
+        margin-left:4em;
+        color:hsl(236, 9%, 61%);
+        font-size:.75rem;
+        font-weight: 400;
+        width: 100%;
+        cursor:pointer;
+        text-decoration: none;
+        user-select: text;
+    }
+    label::before {
+        content: "";
+        background-position:center;
+        background-size: 10px 10px;
+        background-repeat: no-repeat;
+        width:1.15em;
+        height:1.15em;
+        left:-2.05em;
+        top:-.25em;
+        position:absolute;
+        border: 1px solid #38394a;
+        border-radius: 100%;
+        font-size:1rem;
+    }
+
+    label::after {
+        content: "";
+        background: url("../../../images/icon-check.svg");
+        background-position:center;
+        background-size: 10px 10px;
+        background-repeat: no-repeat;
+        filter: var(--checkColor);
+        width:1.15em;
+        height:1.15em;
+        left:-2em;
+        top:-.2em;
+        position:absolute;
+        border-radius: 100%;
+        font-size:1rem;
+        z-index: 2;
+        transform: scale(0) rotateZ(180deg);
+        transition: all .3s cubic-bezier(.54,.01,0,1.49); 
+    }
+
+    input[type='checkbox']:checked + label::after{
+        transform:scale(1) rotateZ(0deg);
+
+    }
+}
+
+// Input Field Task Bar
+
+.task-input-container {
+    transition: all .5s ease-in-out;
+    margin-top: 2em;
+    border-radius: 5px;
+    border-bottom: hidden;
+
+    .doneInput {
+        appearance: none;
+        border: solid 1px;
+        border-radius: 100%;
+        border-color: #38394a;
+        width:1.75em;
+        height:1.5em;
+        margin-left: 1.25em;
+        background-color: transparent;
+    }
+
+    .input {
+        background-color:transparent;
+        border-color: transparent;
+        height:100%;
+        width:100%;
+        font-size:.75rem;
+        font-weight:400;;
+        color:var(--inputColor);
+        margin-left:.75em;
+    
+        &::placeholder  {
+            color : hsl(236, 9%, 61%);
+        }
+    
+        &:focus {
+            outline:none;
+        }
+    }
+}
+
+// Tasks Container
+
+.tasks-container {
+    transition: all .5s ease-in-out;
+    width:100%;
+    height: 25em;
+    background-color: var(--bgTasks);
+    margin-top: 1em;
+    border-radius: 5px 5px 0 0;
+    overflow: auto;
+    
+
+}
+
+.tasks-bottom-container {
+    transition: all .5s ease-in-out;
+    border-radius: 0 0 5px 5px;
+    padding:2em 2em;
+    border:none;
+    border-top: 1px solid #38394a;
+    justify-content: space-between;
+    font-size: .75em;
+
+    .task-counter {
+        span {
+            color: rgb(88, 91, 114);
+        }
+    }
+    
+    p{
+        color: rgb(88, 91, 114);
+    }
+
+    .clear-completed {
+        cursor: pointer;
+    }
+
+}
+
+#desktop-bottom {
+    transition: all .5s ease-in-out;
+    border-radius: 0 0 5px 5px;
+    padding:2em 2em;
+    border:none;
+    border-top: 1px solid #38394a;
+    justify-content: space-between;
+    font-size: .75em;
+    
+    p{
+        color:rgb(88, 91, 114);
+    }
+
+    span {
+        color:rgb(88, 91, 114);
+    }
+
+    h4 {
+        color:rgb(88, 91, 114);
+    }
+    
+}
+
+//Bottom Floating Container
+
+.footer {
+    transition: all .5s ease-in-out;
+    border:none;
+    border-radius: 5px;
+    margin-top: 1em;
+    justify-content: space-around;
+    padding:0 3em;
+    
+    h4 {
+        font-weight:400;
+        color:rgb(88, 91, 114);
+    }
+
+    .filter-btn {
+        cursor: pointer;
+    }
+
+    .filter-select {
+        color:#3c7af7;
+    }
+}
+
+//Animation
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(2.5em);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.completedAnim {
+    transform: translateX(5em);
+}
+//Active Classes
+
+.hidden {
+    display:none;
+}

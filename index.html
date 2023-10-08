@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="styles/css/style.css">
+  <title>Frontend Mentor | Todo app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+</head>
+<body>
+  <!-- Header Image Section -->
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header">
+    <h1 class = 'todo-header'>TODO</h1>
+    <img class="theme-switch" src="../images/icon-moon.svg" alt="sun">
+    </div>
+
+    <!-- Create Task Input-->
+    <div class="task-style task-input-container">
+      <input type="button" name="" class="doneInput">
+      <input class = "input" type="text" placeholder="Create a new todo...">
+    </div>
+
+    <div class="tasks-container">
+      <ul>
+        
+      </ul>
+    </div>
+
+    <div class='tasks-bottom-container task-style' id='mobile-bottom'>
+      <p class='task-counter'><span>0</span> Items left</p>
+      <p class='clear-completed'>Clear Completed</p>
+    </div>
+
+    <!-- <div class="task-bottom-container task-style" id='desktop-bottom'>
+      <p class='task-counter'><span>0</span> Items left</p>
+      <h4 class="filter-btn all-btn filter-select">All</h4>
+      <h4 class="filter-btn active-btn">Active</h4>
+      <h4 class="filter-btn completed-btn">Completed</h4>
+      <p class='clear-completed'>Clear Completed</p>
+    </div> -->
+
+    <div class="footer task-style">
+      <h4 class="filter-btn all-btn filter-select">All</h4>
+      <h4 class="filter-btn active-btn">Active</h4>
+      <h4 class="filter-btn completed-btn">Completed</h4>
+    </div>
+
+  </div>  
+</body>
+<script src="./index.js"></script>
+</html>
